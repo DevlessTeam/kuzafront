@@ -37,6 +37,8 @@
 }
 .mr-t-20 { margin-top: 20px; }
 .mr-t-30 { margin-top: 30px; }
+.mr-b-20 { margin-bottom: 20px; }
+.mr-b-30 { margin-bottom: 30px; }
 
 .mr-auto { margin-left: auto; margin-right: auto; }
 .mr-0 { margin: 0px; }
@@ -54,6 +56,12 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+.dead-center{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 100vh;
 }
 .payLogo img {
 	border-radius: 3px;
