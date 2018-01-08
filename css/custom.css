@@ -17,11 +17,14 @@
 }
 @media (min-width: 1200px) {
 	.rightPage {
-		padding: 80px 20px 80px 40px;
+		padding: 30px 20px 30px 40px;
 	}
 	.leftPage {
 		padding: 80px;
 		border-right: 1px solid rgba(0,0,0,0.05);
+	}
+	.rightContent {
+		padding: 30px 50px;
 	}
 }
 .pd-tb-mini {
@@ -61,7 +64,15 @@
 	border-radius: 5px;
 	background: #fff;
 }
-
+.row.sm-gutter {
+    margin-right: -5px;
+    margin-left: -5px;
+}
+.row.sm-gutter > [class^="col-"],
+.row.sm-gutter > [class*=" col-"] {
+    padding-right: 5px;
+    padding-left: 5px;
+}
 .text-white { color: #fff; }
 .w-100 { width: 100% !important; }
 hr { margin: 30px 0; }
