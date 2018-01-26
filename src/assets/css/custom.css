@@ -32,7 +32,6 @@
 	padding-bottom: 50px;
 }
 .leftPage {
-	background: url(/static/bg.jpg);
 	background-size: cover;
 }
 .mr-t-20 { margin-top: 20px; }

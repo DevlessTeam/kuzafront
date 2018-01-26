@@ -1,0 +1,7 @@
+{
+  "doughman": {
+    "type": "select",
+    "delivery": true,
+    "notes": true
+  }
+}

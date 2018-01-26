@@ -1,55 +1,60 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Devless from '../utils/devless'
+import formStruct from '@/assets/form.json'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
     link: '',
-    vues: {order: true, details: false, thankYou: false},
+    order: '',
+    loading: true,
+    vues: 0,
     formStructure: undefined,
+    inventory: [],
     deliveryFee: 0,
     deliveryOptions: [],
-    selectedProduct: [
-      {name: 'Classic Assorted', price: 20.30, quantity: 1}
-    ]
+    selectedProduct: []
   },
   mutations: {
     getUrl (state) {
       state.link = location.pathname.substring(1)
     },
-    addProduct (state, val) {
-      state.selectedProduct.push(val)
+    addOrder (state, val) {
+      state.order = val
     },
-    removeProduct (state, val) {
-      if (state.selectedProduct.length !== 1) {
-        state.selectedProduct.splice(val, 1)
-        return
-      }
-      alert('You must order at least one product')
+    changeVues (state, val) {
+      state.vues = val
+    },
+    setFormStructure (state, val) {
+      state.formStructure = val
+    },
+    setInventory (state, val) {
+      state.inventory = val
+    },
+    addProduct (state) {
+      state.selectedProduct.push(state.inventory[0])
+    },
+    changeLoading (state) {
+      state.loading = !state.loading
     }
   },
   actions: {
-    async fetchStructure (context) {
+    fetchStructure (context) {
       context.commit('getUrl')
       if (context.state.link !== '') {
-        const res = await Devless.queryData('kuzafront', 'form_structure', {
-          where: `name,${context.state.link}`
-        })
-        console.log(res)
-        if (res.status_code === 625 && res.payload.results.length !== 0) {
-          context.state.formStructure = JSON.parse(res.payload.results[0].content)
+        if (formStruct[context.state.link]) {
+          context.commit('setFormStructure', formStruct[context.state.link])
           return
         }
         alert(`An unexpected error occurred`)
-        console.log(res)
         return
       }
       alert(`Invalid url. Please get the right one`)
     },
     async fetchDelivery (context) {
-      const res = await Devless.queryData('', '')
+      const res = await Devless.queryData('SocialSell', '')
       if (res.status_code === 625) {
         context.state.deliveryOptions = res.payload.results
         return
@@ -57,15 +62,14 @@ const store = new Vuex.Store({
       alert('An error occurred')
       console.log(res)
     },
-    async addOrders (context, val) {
-      const res = await Devless.addData('', '', val)
-      if (res.status_code === 609) {
-        context.state.vues = {
-          order: false,
-          details: true,
-          thankYou: false
-        }
-        alert('Order placed successfully')
+    async fetchInventory (context) {
+      const res = await Devless.queryData('SocialSell', 'inventory', {
+        where: `shop_id,${context.state.link}`
+      })
+      if (res.status_code === 625) {
+        context.commit('changeLoading')
+        context.commit('setInventory', res.payload.results)
+        context.commit('addProduct', res.payload.results[0])
         return
       }
       alert('An error occurred')
@@ -78,7 +82,7 @@ const store = new Vuex.Store({
     },
     getSubTotal (state) {
       let total = 0
-      state.selectedProduct.map((v) => {
+      state.selectedProduct.map(v => {
         total += v.price * v.quantity
       })
       return total
