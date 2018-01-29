@@ -122,7 +122,7 @@ export default {
       alert('You must order at least one product')
     },
     async fetchInventory () {
-      const res = await Devless.queryData('SocialSell', 'inventory', {
+      const res = await Devless.queryData('SocialSell', 'get_inventory', {
         where: `shop_id,${this.$store.state.link}`
       })
       if (res.status_code === 625) {
@@ -135,7 +135,7 @@ export default {
           }
           _self.inventory.push(singleItem)
         })
-        this.deliveries = res.payload.properties.delivery_locations
+        this.deliveries = res.payload.delivery_locations
         return
       }
       alert('An error occurred')
@@ -153,7 +153,8 @@ export default {
         'date': '',
         'status': 'pending',
         'notes': this.notes,
-        'location': this.deliver.location,
+        'location': 'Dubai',
+        // 'location': this.deliver.location,
         'shop_id': this.$store.state.link,
         'purchases': this.selectedProduct
       }
