@@ -1,5 +1,5 @@
 <template>
-  <div v-if="$store.state.formStructure.type === 'select'">
+  <div>
     <div v-if="inventory.length !== 0">
       <form role="form" @submit.prevent="submitOrder">
       <div class="products-wrap mr-t-30">
@@ -36,13 +36,13 @@
       </div>
       <hr class="mr-tb-20">
 
-      <div class="row" v-if="$store.state.formStructure.notes">
+      <div class="row">
         <div class="form-group col-xs-12">
           <textarea name="" class="form-control" placeholder="Additional notes or description." rows="5" v-model="notes"></textarea>
         </div>
       </div>
 
-      <div class="row" v-if="$store.state.formStructure.delivery">
+      <div class="row">
         <div class="col-md-12 ">
           <label for="">Delivery Location</label>
         </div>
@@ -136,6 +136,7 @@ export default {
           _self.inventory.push(singleItem)
         })
         this.deliveries = res.payload.delivery_locations
+        this.deliveries.push({id: '0', charge: 0, location: 'Pick up OR No delivery'})
         return
       }
       alert('An error occurred')

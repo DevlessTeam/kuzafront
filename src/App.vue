@@ -51,17 +51,19 @@ export default {
       const res = await this.$devless.queryData('SocialSell', 'shops', {
         where: `name,${this.$store.state.link}`
       })
-      if (res.status_code === 625) {
+      if (res.payload.results[0].shop_id === this.$store.state.link) {
         this.details = res.payload.results[0]
         return
       }
-      alert('An error occurred')
+      alert('Error! Invalid url provided')
       console.log(res)
     }
   },
+  mounted () {
+    this.fetchStoreDetails()
+  },
   created () {
     this.$store.dispatch('fetchStructure')
-    this.fetchStoreDetails()
   }
 }
 </script>

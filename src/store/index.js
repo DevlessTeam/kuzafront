@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Devless from '../utils/devless'
-import formStruct from '@/assets/form.json'
 
 Vue.use(Vuex)
 
@@ -11,7 +10,7 @@ const store = new Vuex.Store({
     order: '',
     loading: true,
     vues: 0,
-    formStructure: undefined,
+    shop: undefined,
     inventory: [],
     deliveryFee: 0,
     deliveryOptions: [],
@@ -28,7 +27,7 @@ const store = new Vuex.Store({
       state.vues = val
     },
     setFormStructure (state, val) {
-      state.formStructure = val
+      state.shop = val
     },
     setInventory (state, val) {
       state.inventory = val
@@ -41,26 +40,8 @@ const store = new Vuex.Store({
     }
   },
   actions: {
-    fetchStructure (context) {
-      context.commit('getUrl')
-      if (context.state.link !== '') {
-        if (formStruct[context.state.link]) {
-          context.commit('setFormStructure', formStruct[context.state.link])
-          return
-        }
-        alert(`An unexpected error occurred`)
-        return
-      }
-      alert(`Invalid url. Please get the right one`)
-    },
-    async fetchDelivery (context) {
-      const res = await Devless.queryData('SocialSell', '')
-      if (res.status_code === 625) {
-        context.state.deliveryOptions = res.payload.results
-        return
-      }
-      alert('An error occurred')
-      console.log(res)
+    async fetchStructure ({commit, state}) {
+      commit('getUrl')
     },
     async fetchInventory (context) {
       const res = await Devless.queryData('SocialSell', 'inventory', {
