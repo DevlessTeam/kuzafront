@@ -1,5 +1,17 @@
 <template>
   <div id="app">
+      <!-- Twitter Card Meta -->
+    <meta name="twitter:card" :content="details.desc" />
+    <meta name="twitter:site" :content="`https://kuzaforms.com/${$store.state.link}`" />
+    <meta name="twitter:title" :content="details.name" />
+    <meta name="twitter:description" :content="details.desc" />
+    <meta name="twitter:image" :content="details.image" />
+
+    <!-- Facebook Meta Tags -->
+    <meta property="og:title" :content="details.name" />
+    <meta property="og:type" :content="details.desc" />
+    <meta property="og:url" :content="`https://kuzaforms.com/${$store.state.link}`" />
+    <meta property="og:image" :content="details.image" />
     <title>{{ details.name }}</title>
     <div class="container-fluid">
       <div class="row">
