@@ -3,7 +3,7 @@
     <title>{{ details.name }}</title>
     <div class="container-fluid">
       <div class="row">
-        <div class="leftPage col-md-7 pd-tb-mini pd-r-50" :style="{ backgroundImage: `url('${details.image}')` }">
+        <div class="leftPage col-md-7 pd-tb-mini pd-r-50" :style="{ 'background': 'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),' + `url('${details.image}')` + '0 / cover' }">
           <div v-if="details.name !== ''">
             <h1 class="text-white text-center">{{details.name}}</h1>
             <h5 class="text-white text-center">{{details.desc}}</h5>

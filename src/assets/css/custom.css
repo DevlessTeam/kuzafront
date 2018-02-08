@@ -14,6 +14,12 @@
 	.leftPage {
 		padding: 1px;
 	}
+	.rightContent {
+		max-height: calc(100vh - 80px);
+		max-height: -moz-calc(100vh - 80px);
+		max-height: -webkit-calc(100vh - 80px);
+		overflow: scroll;
+	}
 }
 @media (min-width: 1200px) {
 	.rightPage {
