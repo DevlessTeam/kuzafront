@@ -35,13 +35,14 @@ export default {
       let data = this.$store.state.order
       data.name = this.name
       data.contact = this.phone
-      console.log(JSON.stringify(data))
 
       const res = await this.$devless.addData('SocialSell', 'place_order', data)
-      console.log(res)
       this.loading = false
       if (res.status_code === 609) {
         this.$store.commit('changeVues', 2)
+        if (res.payload.payment_link !== null) {
+          this.$store.commit('SET_LINK', res.payload.payment_link)
+        }
         return
       }
       alert('An error occurred')

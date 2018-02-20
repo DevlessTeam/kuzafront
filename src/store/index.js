@@ -13,6 +13,7 @@ const store = new Vuex.Store({
     shop: undefined,
     inventory: [],
     deliveryFee: 0,
+    payment_link: undefined,
     deliveryOptions: [],
     selectedProduct: []
   },
@@ -37,6 +38,9 @@ const store = new Vuex.Store({
     },
     changeLoading (state) {
       state.loading = !state.loading
+    },
+    SET_LINK (state, val) {
+      state.payment_link = val
     }
   },
   actions: {

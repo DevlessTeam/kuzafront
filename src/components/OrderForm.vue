@@ -17,7 +17,7 @@
           </div>
           <div class="form-group col-xs-3">
             <label for="" class="control-label">Ghc</label>
-            <input type="number" readonly class="form-control" :value="item.quantity * item.buying_price">
+            <input type="number" readonly class="form-control" :value="item.quantity * item.unit_price">
           </div>
           <div class="form-group col-xs-1 dyn-btn">
             <label for="" class="control-label">&nbsp;</label>
@@ -58,7 +58,7 @@
       </div>
       <div class="row">
         <div class="form-group col-md-12 mr-t-20 text-center">
-          <button type="submit" class="btn btn-primary">Pay (Gh&#8373; {{ getTotal }})</button>
+          <button type="submit" class="btn btn-primary">Amount Payable (Gh&#8373; {{ getTotal }})</button>
         </div>
       </div>
     </form>
@@ -79,7 +79,7 @@ export default {
     selectedProduct: [{
       shop_id: '',
       quantity: 1,
-      buying_price: '',
+      unit_price: '',
       SocialSell_orders_id: '',
       SocialSell_inventory_id: ''
     }],
@@ -98,7 +98,8 @@ export default {
       let _self = this
       this.inventory.map((v) => {
         if (v.id === _id) {
-          _self.selectedProduct[i].buying_price = 12
+          _self.selectedProduct[i].name = v.name
+          _self.selectedProduct[i].unit_price = v.price
         }
       })
     },
@@ -109,7 +110,8 @@ export default {
       this.selectedProduct.push({
         shop_id: '',
         quantity: 1,
-        buying_price: '',
+        unit_price: '',
+        total_price: '',
         SocialSell_orders_id: '',
         SocialSell_inventory_id: ''
       })
@@ -136,7 +138,6 @@ export default {
           _self.inventory.push(singleItem)
         })
         this.deliveries = res.payload.delivery_locations
-        this.deliveries.push({id: '0', charge: 0, location: 'Pick up OR No delivery'})
         return
       }
       alert('An error occurred')
@@ -154,8 +155,7 @@ export default {
         'date': '',
         'status': 'pending',
         'notes': this.notes,
-        'location': 'Dubai',
-        // 'location': this.deliver.location,
+        'location': this.deliver.location,
         'shop_id': this.$store.state.link,
         'purchases': this.selectedProduct
       }
@@ -167,7 +167,7 @@ export default {
     getSubTotal () {
       let subTotal = 0
       this.selectedProduct.map((v) => {
-        subTotal += v.quantity * v.buying_price
+        subTotal += v.quantity * v.unit_price
       })
       return subTotal
     },
