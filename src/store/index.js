@@ -19,7 +19,7 @@ const store = new Vuex.Store({
   },
   mutations: {
     getUrl (state) {
-      state.link = location.pathname.substring(1)
+      state.link = location.hash.substring(2)
     },
     addOrder (state, val) {
       state.order = val
