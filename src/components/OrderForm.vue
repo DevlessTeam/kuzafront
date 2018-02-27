@@ -44,11 +44,11 @@
 
       <div class="row">
         <div class="col-md-12 ">
-          <label for="">Delivery Location</label>
+          <label for="">Delivery Option</label>
         </div>
         <div class="form-group col-xs-6">
           <select class="form-control" required="required" v-model="deliver.id" @input="selectDelivery($event)">
-            <option value="">-- Delivery Location --</option>
+            <option value="">-- Delivery Option --</option>
             <option :value="index" v-for="(delivery, index) in deliveries" :key="index">{{ delivery.location }}</option>
           </select>
         </div>
