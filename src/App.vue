@@ -61,7 +61,7 @@ export default {
   methods: {
     async fetchStoreDetails () {
       const res = await this.$devless.queryData('SocialSell', 'shops', {
-        where: `name,${this.$store.state.link}`
+        where: `shop_id,${this.$store.state.link}`
       })
       if (res.payload.results[0].shop_id === this.$store.state.link) {
         this.details = res.payload.results[0]
