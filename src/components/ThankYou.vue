@@ -16,7 +16,7 @@
 export default {
   computed: {
     url () {
-      return `${location.origin}/${this.$store.state.link}`
+      return `${location.origin}/f/#/${this.$store.state.link}`
     }
   }
 }

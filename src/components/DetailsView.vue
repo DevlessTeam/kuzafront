@@ -5,11 +5,11 @@
       <div class="row">
         <div class="form-group col-sm-12">
           <label for="" class="control-label">Name</label>
-          <input type="text" class="form-control" id="" placeholder="Enter your full name" v-model="name">
+          <input type="text" class="form-control" id="" placeholder="Enter your full name" v-model="name" required>
         </div>
         <div class="form-group col-sm-12">
           <label for="" class="control-label">Contact</label>
-          <input type="tel" class="form-control" id="" placeholder="Enter your phone number" v-model="phone">
+          <input type="number" class="form-control" id="" placeholder="Enter your phone number" v-model="phone" required>
         </div>
       </div>
       <div class="row">
