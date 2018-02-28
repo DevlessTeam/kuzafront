@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <div class="row text-center dead-center">
       <div class="pd-tb-mini mr-b-30">
         <img src="static/success.png">
